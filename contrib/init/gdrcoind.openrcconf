@@ -1,0 +1,33 @@
+# /etc/conf.d/gdrcoind: config file for /etc/init.d/gdrcoind
+
+# Config file location
+#GDRCOIND_CONFIGFILE="/etc/gdrcoin/gdrcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $GDRCOIND_USER)
+#GDRCOIND_PIDDIR="/var/run/gdrcoind"
+
+# What filename to give the pidfile
+#GDRCOIND_PIDFILE="${GDRCOIND_PIDDIR}/gdrcoind.pid"
+
+# Where to write gdrcoind data (be mindful that the blockchain is large)
+#GDRCOIND_DATADIR="/var/lib/gdrcoind"
+
+# User and group to own gdrcoind process
+#GDRCOIND_USER="gdrcoin"
+#GDRCOIND_GROUP="gdrcoin"
+
+# Path to gdrcoind executable
+#GDRCOIND_BIN="/usr/bin/gdrcoind"
+
+# Nice value to run gdrcoind under
+#GDRCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#GDRCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for gdrcoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+GDRCOIND_SIGTERM_TIMEOUT=60

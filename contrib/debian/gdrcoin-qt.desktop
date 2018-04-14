@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Gdrcoin Core
+Comment=Connect to the Gdrcoin P2P Network
+Comment[de]=Verbinde mit dem Gdrcoin peer-to-peer Netzwerk
+Comment[fr]=Gdrcoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Gdrcoin, eşten eşe kriptografik sanal para birimi
+Exec=gdrcoin-qt %u
+Terminal=false
+Type=Application
+Icon=gdrcoin128
+MimeType=x-scheme-handler/gdrcoin;
+Categories=Office;Finance;

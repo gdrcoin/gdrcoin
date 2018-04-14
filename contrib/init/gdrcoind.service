@@ -1,0 +1,22 @@
+[Unit]
+Description=Gdrcoin's distributed currency daemon
+After=network.target
+
+[Service]
+User=gdrcoin
+Group=gdrcoin
+
+Type=forking
+PIDFile=/var/lib/gdrcoind/gdrcoind.pid
+ExecStart=/usr/bin/gdrcoind -daemon -pid=/var/lib/gdrcoind/gdrcoind.pid \
+-conf=/etc/gdrcoin/gdrcoin.conf -datadir=/var/lib/gdrcoind -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,81 @@
+policy_module(gdrcoin, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type gdrcoin_t;
+type gdrcoin_exec_t;
+init_daemon_domain(gdrcoin_t, gdrcoin_exec_t)
+
+permissive gdrcoin_t;
+
+type gdrcoin_initrc_exec_t;
+init_script_file(gdrcoin_initrc_exec_t)
+
+type gdrcoin_conf_t;
+files_type(gdrcoin_conf_t)
+
+type gdrcoin_var_lib_t;
+files_type(gdrcoin_var_lib_t)
+
+type gdrcoin_var_run_t;
+files_type(gdrcoin_var_run_t)
+
+type gdrcoin_port_t;
+corenet_port(gdrcoin_port_t)
+
+########################################
+#
+# gdrcoin local policy
+#
+allow gdrcoin_t self:process { fork };
+
+allow gdrcoin_t self:fifo_file rw_fifo_file_perms;
+allow gdrcoin_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(gdrcoin_t, gdrcoin_conf_t, gdrcoin_conf_t)
+manage_files_pattern(gdrcoin_t, gdrcoin_conf_t, gdrcoin_conf_t)
+
+manage_dirs_pattern(gdrcoin_t, gdrcoin_var_lib_t, gdrcoin_var_lib_t)
+manage_files_pattern(gdrcoin_t, gdrcoin_var_lib_t, gdrcoin_var_lib_t)
+files_var_lib_filetrans(gdrcoin_t, gdrcoin_var_lib_t, { dir file })
+
+manage_dirs_pattern(gdrcoin_t, gdrcoin_var_run_t, gdrcoin_var_run_t)
+manage_files_pattern(gdrcoin_t, gdrcoin_var_run_t, gdrcoin_var_run_t)
+
+sysnet_dns_name_resolve(gdrcoin_t)
+corenet_all_recvfrom_unlabeled(gdrcoin_t)
+
+allow gdrcoin_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(gdrcoin_t)
+corenet_tcp_sendrecv_generic_node(gdrcoin_t)
+corenet_tcp_sendrecv_all_ports(gdrcoin_t)
+corenet_tcp_bind_generic_node(gdrcoin_t)
+
+gen_require(`
+    type gdrcoin_port_t;
+')
+allow gdrcoin_t gdrcoin_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type gdrcoin_port_t;
+')
+allow gdrcoin_t gdrcoin_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(gdrcoin_t)
+
+files_read_etc_files(gdrcoin_t)
+
+miscfiles_read_localization(gdrcoin_t)
+
+sysnet_dns_name_resolve(gdrcoin_t)
+
+allow gdrcoin_t gdrcoin_exec_t:file execute_no_trans;
+allow gdrcoin_t self:process setsched;
+corecmd_exec_ls(gdrcoin_t)
+corenet_tcp_connect_http_port(gdrcoin_t)
+dev_read_urand(gdrcoin_t)
+fs_getattr_xattr_fs(gdrcoin_t)
+kernel_read_system_state(gdrcoin_t)

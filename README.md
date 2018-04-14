@@ -1,0 +1,2 @@
+# gdrcoin
+Gdrcoin Core
